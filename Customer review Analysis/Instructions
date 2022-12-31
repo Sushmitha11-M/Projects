@@ -1,0 +1,4 @@
+make sure the files are currect folder
+html file should be in "templates" folder
+first execute scraping data if needed
+after execute app file , it will give the link click on that link then should type "/fun" along with that link.
