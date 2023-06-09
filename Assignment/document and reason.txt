@@ -1,0 +1,67 @@
+Trade API Documentation
+
+This document outlines the implementation details of the Trade API, which provides endpoints for retrieving a list of trades,
+fetching a single trade by ID, searching trades, and filtering trades based on various criteria.
+ The API also supports pagination and sorting for the list of trades.
+
+List of Trades Endpoint
+
+Endpoint: /trades
+
+Method: GET
+Parameters:
+asset_class (optional): Asset class of the trade.
+end (optional): The maximum date for the tradeDateTime field.
+max_price (optional): The maximum value for the tradeDetails.price field.
+min_price (optional): The minimum value for the tradeDetails.price field.
+start (optional): The minimum date for the tradeDateTime field.
+trade_type (optional): The tradeDetails.buySellIndicator is a BUY or SELL.
+page (optional): Page number for pagination (default: 1).
+limit (optional): Number of trades per page (default: 10).
+sort_by (optional): Field to sort the trades by.
+Single Trade Endpoint
+
+Endpoint: /trades/{trade_id}
+
+Method: GET
+Parameters:
+trade_id: Unique ID of the trade to fetch.
+Searching Trades Endpoint
+
+Endpoint: /trades/search
+
+Method: GET
+Parameters:
+search: Search term to look for in the following fields: counterparty, instrumentId, instrumentName, and trader.
+Advanced Filtering
+
+The list of trades endpoint supports advanced filtering using the following optional query parameters:
+
+asset_class: Filters trades based on the asset class of the trade.
+end: Filters trades with a tradeDateTime value that is less than or equal to the provided maximum date.
+max_price: Filters trades with a tradeDetails.price value that is less than or equal to the provided maximum price.
+min_price: Filters trades with a tradeDetails.price value that is greater than or equal to the provided minimum price.
+start: Filters trades with a tradeDateTime value that is greater than or equal to the provided minimum date.
+trade_type: Filters trades based on the tradeDetails.buySellIndicator, which can be either BUY or SELL.
+Pagination and Sorting
+
+The list of trades endpoint supports pagination and sorting. Pagination allows users to retrieve a specific page of trades,
+ while sorting enables them to order the trades based on a particular field.
+
+Pagination: The page parameter determines the page number, and the limit parameter specifies the number of trades to display per page.
+The endpoint returns the trades that correspond to the requested page.
+
+Sorting: The sort_by parameter allows users to specify a field to sort the trades. The trades are sorted in ascending order
+based on the provided field.
+
+Reasoning Behind the Approach
+
+Pydantic Models: The Trade and TradeDetails models were defined using Pydantic, which provides a concise and type-safe way to define
+the data structure of the trades. It allows for easy validation and serialization/deserialization of data.
+
+FastAPI Framework: FastAPI was chosen as the web framework for building the Trade API due to its high performance, ease of use,
+and support for modern Python features like type annotations. FastAPI provides automatic generation of OpenAPI and JSON Schema
+documentation, request validation, and automatic serialization of responses.
+
+Separation of Concerns: The implementation follows the principle of separation of concerns. Each endpoint focuses on a specific
+functionality, such as retrieving trades, fetching a single trade, searching trades
